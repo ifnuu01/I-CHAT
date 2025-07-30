@@ -1,45 +1,35 @@
+import { Entypo, Fontisto, Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: '#e8efffff',
+        tabBarInactiveTintColor: '#aaa',
+        tabBarStyle: {
+          backgroundColor: '#222',
+          borderTopColor: '#333',
+          paddingVertical: 10,
+        },
+        tabBarLabelStyle: {
+          fontSize: 10,
+          color: '#fff',
+        },
         headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
+      }}
+    >
+      <Tabs.Screen name="conversations" options={{
+        tabBarIcon: ({ color }) => <Entypo name="message" size={24} color={color} />,
+      }} />
+      <Tabs.Screen name="friends" options={{
+        tabBarIcon: ({ color }) => <Fontisto name="world" size={24} color={color} />,
+      }} />
+      <Tabs.Screen name="settings" options={{
+        title: 'Pengaturan',
+        tabBarIcon: ({ color }) => <Ionicons name="settings" size={24} color={color} />,
+      }} />
     </Tabs>
   );
 }
