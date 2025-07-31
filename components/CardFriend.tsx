@@ -5,7 +5,7 @@ import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 
 export default function CardFriend({ email, friendship_status, id, friendship_id }: {
     email: string;
-    friendship_status: "none" | "friends" | "pending_sent" | "pending_received";
+    friendship_status: "none" | "friends" | "pending_sent" | "pending_received" | "accepted" | "pending";
     id: number;
     friendship_id: number;
 }) {
