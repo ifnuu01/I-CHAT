@@ -2,7 +2,7 @@ import Bubble from "@/components/Bubble";
 import InputMessage from "@/components/InputMessage";
 import { useMessage } from "@/hooks/useMessage";
 import { useFocusEffect, useLocalSearchParams, useNavigation } from "expo-router";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 
 export default function Message() {
@@ -13,6 +13,7 @@ export default function Message() {
         id: string;
     }>();
     const { messages, loading, error, fetchMessages } = useMessage(id ? Number(id) : 0);
+    const [activeBubbleId, setActiveBubbleId] = useState<number | null>(null);
 
     useEffect(() => {
         fetchMessages();
@@ -31,8 +32,15 @@ export default function Message() {
         }, [navigation])
     );
 
-    const renderItem = ({ item }: { item: { content: string; sender_id: number } }) => (
-        <Bubble text={item.content} senderId={item.sender_id} />
+    const renderItem = ({ item }: { item: { content: string; sender_id: number; id: number } }) => (
+        <Bubble
+            text={item.content}
+            senderId={item.sender_id}
+            messageId={item.id}
+            isActive={activeBubbleId === item.id}
+            onOpenMenu={() => setActiveBubbleId(item.id)}
+            onCloseMenu={() => setActiveBubbleId(null)}
+        />
     );
 
     if (error) {
@@ -44,7 +52,12 @@ export default function Message() {
     }
 
     return (
-        <>
+        <View
+            style={{
+                flex: 1,
+                backgroundColor: '#181818',
+            }}
+        >
             {
                 loading ? (
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -67,6 +80,6 @@ export default function Message() {
                 )
             }
             <InputMessage name={name} conversationId={id} />
-        </>
+        </View>
     )
 }

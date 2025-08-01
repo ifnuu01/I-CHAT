@@ -58,7 +58,7 @@ export const useMessage = (conversationId: number) => {
     useEffect(() => {
         const pusher = new Pusher(process.env.EXPO_PUBLIC_REVERB_APP_KEY || 'yhjkgq2adzbhhconqnd0', {
             cluster: process.env.EXPO_PUBLIC_REVERB_APP_CLUSTER || 'mt1',
-            wsHost: process.env.EXPO_PUBLIC_REVERB_HOST || '10.243.107.82',
+            wsHost: process.env.EXPO_PUBLIC_REVERB_HOST || '192.168.1.5',
             wsPort: Number(process.env.EXPO_PUBLIC_REVERB_PORT) || 8080,
             wssPort: Number(process.env.EXPO_PUBLIC_REVERB_PORT) || 8080,
             forceTLS: (process.env.EXPO_PUBLIC_REVERB_SCHEME) === 'https',
