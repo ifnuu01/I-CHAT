@@ -58,12 +58,12 @@ export const useMessage = (conversationId: number) => {
     useEffect(() => {
         const pusher = new Pusher(process.env.EXPO_PUBLIC_REVERB_APP_KEY || 'yhjkgq2adzbhhconqnd0', {
             cluster: process.env.EXPO_PUBLIC_REVERB_APP_CLUSTER || 'mt1',
-            wsHost: process.env.EXPO_PUBLIC_REVERB_HOST || '192.168.1.5',
+            wsHost: process.env.EXPO_PUBLIC_REVERB_HOST || '192.168.1.14',
             wsPort: Number(process.env.EXPO_PUBLIC_REVERB_PORT) || 8080,
             wssPort: Number(process.env.EXPO_PUBLIC_REVERB_PORT) || 8080,
             forceTLS: (process.env.EXPO_PUBLIC_REVERB_SCHEME) === 'https',
             disableStats: true,
-            enabledTransports: ['ws'],
+            enabledTransports: ['ws']
         } as any);
 
         pusher.connection.bind('connected', () => {
@@ -82,6 +82,22 @@ export const useMessage = (conversationId: number) => {
             setMessages(prev => [data, ...prev]);
         });
 
+        channel.bind('App\\Events\\MessageUpdated', (data: Message) => {
+            console.log("Message updated:", data);
+            setMessages(prev =>
+                prev.map(msg => msg.id === data.id ? { ...msg, ...data } : msg)
+            );
+        });
+
+        channel.bind('App\\Events\\MessageDeleted', (data: { id: number, conversation_id: number }) => {
+            console.log("Message deleted:", data);
+            setMessages(prev =>
+                prev.map(msg => msg.id === data.id
+                    ? { ...msg, is_deleted: true, deleted_at: new Date().toISOString() }
+                    : msg
+                )
+            );
+        });
 
         return () => {
             channel.unbind_all();
@@ -105,7 +121,7 @@ export const useSendMessage = () => {
     const [error, setError] = useState<Error | null>(null);
 
 
-    const sendMessage = async (conversation_id: number, content: string) => {
+    const sendMessage = async (conversation_id: number, content: string, reply_to_id: number | null = null) => {
         setLoading(true);
         setError(null);
 
@@ -118,7 +134,7 @@ export const useSendMessage = () => {
                     'Accept': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ conversation_id, content }),
+                body: JSON.stringify({ conversation_id, content, reply_to_id }),
             });
             const result = await response.json();
 
@@ -139,6 +155,133 @@ export const useSendMessage = () => {
         loading,
         error,
     };
+}
+
+export const useUpdateMessage = () => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<Error | null>(null);
+
+    const updateMessage = async (message_id: number, content: string) => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            const token = await getToken();
+
+            const response = await fetch(`${API_URL}/messages?_method=PUT`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({ message_id, content }),
+            });
+
+            const result = await response.json();
+            if (!response.ok) {
+                setError(new Error(result.message || 'Failed to update message'));
+                return false;
+            }
+            console.log('Message updated');
+            return result;
+        } catch (error) {
+            console.log("Error updating message:", error);
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    return {
+        updateMessage,
+        loading,
+        error,
+    }
+}
+
+
+export const useDeleteMessage = () => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<Error | null>(null);
+
+    const deleteMessage = async (message_id: number) => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            const token = await getToken();
+            const response = await fetch(`${API_URL}/messages?_method=DELETE`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({ message_id }),
+            });
+            const result = await response.json();
+
+            if (!response.ok) {
+                setError(new Error(result.message || 'Failed to delete message'));
+                return false;
+            }
+
+            console.log("Message deleted successfully:", result);
+            return result;
+        } catch (err) {
+            console.log("Error deleting message:", err);
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    return {
+        deleteMessage,
+        loading,
+        error,
+    }
+}
+
+export const useShowMessage = (id: number | string) => {
+    const [message, setMessage] = useState<Message | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<Error | null>(null);
+
+    const fetchMessage = async () => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            const token = await getToken();
+            const response = await fetch(`${API_URL}/messages/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            const result = await response.json();
+            if (!response.ok) {
+                setError(new Error(result.message || 'Failed to fetch message'));
+                return;
+            }
+            setMessage(result);
+        } catch (err) {
+            console.error("Error fetching message:", err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchMessage();
+    }, [id]);
+
+    return { message, loading, error };
 }
 
 
