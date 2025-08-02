@@ -78,7 +78,7 @@ export default function Request() {
                                     marginLeft: 8,
                                 }}
                             >
-                                <Feather name="user-plus" size={20} color="#fff" />
+                                <Feather name="check" size={20} color="#fff" />
                             </TouchableOpacity>
                         </View>
                     ))

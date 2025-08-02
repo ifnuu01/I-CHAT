@@ -17,7 +17,7 @@ export default function CardFriend({ email, friendship_status, id, friendship_id
         const result = await addFriend(id);
 
         if (result?.message) {
-            Alert.alert("Success", "Friend request sent successfully");
+            Alert.alert("Berhasil", "Permintaan pertemanan berhasil dikirim");
             setFriendshipStatus("pending_sent");
             setCurrentFriendshipId(result.friendship_id);
         }
@@ -26,7 +26,7 @@ export default function CardFriend({ email, friendship_status, id, friendship_id
     const handleRemoveFriend = async () => {
         const result = await removeFriend(currentFriendshipId);
         if (result?.message) {
-            Alert.alert("Success", "Friend removed successfully");
+            Alert.alert("Berhasil", "Pertemanan berhasil dihapus");
             setFriendshipStatus("none");
         }
     };
@@ -34,7 +34,7 @@ export default function CardFriend({ email, friendship_status, id, friendship_id
     const handleAcceptFriend = async () => {
         const result = await acceptFriend(currentFriendshipId);
         if (result?.message) {
-            Alert.alert("Success", "Friend request accepted successfully");
+            Alert.alert("Berhasil", "Permintaan pertemanan berhasil disetujui");
             setFriendshipStatus("friends");
         }
     };
@@ -42,7 +42,7 @@ export default function CardFriend({ email, friendship_status, id, friendship_id
     const handleCancelAddFriend = async () => {
         const result = await cancelAddFriend(currentFriendshipId);
         if (result?.message) {
-            Alert.alert("Success", "Friend request canceled successfully");
+            Alert.alert("Berhasil", "Permintaan pertemanan berhasil ditolak");
             setFriendshipStatus("none");
         }
     };
@@ -101,7 +101,7 @@ export default function CardFriend({ email, friendship_status, id, friendship_id
                                     : undefined
                 }
                 style={{
-                    backgroundColor: '#222',
+                    backgroundColor: '#2563eb',
                     paddingVertical: 8,
                     paddingHorizontal: 16,
                     borderRadius: 10,

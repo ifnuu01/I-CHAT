@@ -9,8 +9,8 @@ export default function Friendship() {
     const [searchQuery, setSearchQuery] = useState<string>('');
     const { loading, searchFriends, friends } = useFriends();
 
-    const handleSearch = () => {
-        searchFriends(searchQuery);
+    const handleSearch = async () => {
+        await searchFriends(searchQuery);
         setSearchQuery('');
     };
 

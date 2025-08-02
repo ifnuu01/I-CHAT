@@ -86,7 +86,7 @@ export default function List() {
                             </View>
                             <TouchableOpacity
                                 onPress={
-                                    friend.friendship_status === 'accepted' ? () => handleRemoveFriend(friend.friendship_id)
+                                    friend.friendship_status === 'friends' ? () => handleRemoveFriend(friend.friendship_id)
                                         : () => handleCancelAddFriend(friend.friendship_id)
                                 }
                                 style={{
@@ -100,7 +100,7 @@ export default function List() {
                                     alignItems: 'center',
                                 }}
                             >
-                                <Feather name={friend.friendship_status === 'accepted' ? "user-minus" : "x"} size={20} color="#fff" />
+                                <Feather name={friend.friendship_status === 'friends' ? "user-minus" : "x"} size={20} color="#fff" />
                             </TouchableOpacity>
                         </View>
                     ))
