@@ -7,16 +7,19 @@ export default function Card({
     message,
     time,
     id,
+    is_deleted,
 }: {
     name: string;
     message: string;
     time: string;
-    id: number;
+    id: number | string;
+    is_deleted: boolean;
 }) {
     return (
         <TouchableOpacity
             style={{
                 paddingHorizontal: 10,
+                marginBottom: 14,
             }}
             onPress={() => router.push({
                 pathname: `/(tabs)/conversations/message`,
@@ -58,7 +61,9 @@ export default function Card({
                             fontWeight: 'bold',
                             fontSize: 16,
                         }}>{name}</Text>
-                        <Text style={{ color: '#ccc' }}>{message || 'Belum ada pesan baru'}</Text>
+                        <Text style={{ color: '#ccc' }}>
+                            {is_deleted ? "Pesan ini telah dihapus." : (message || 'Belum ada pesan baru').slice(0, 20)}{message && message.length > 20 && '...'}
+                        </Text>
                     </View>
                 </View>
                 <View

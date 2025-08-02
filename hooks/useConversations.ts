@@ -3,8 +3,8 @@ import { useState } from "react";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
-interface Conversation {
-    id?: number;
+export interface Conversation {
+    id?: number | string;
     user1_id?: number;
     user2_id?: number;
     user1_last_read_at?: string;
@@ -13,16 +13,13 @@ interface Conversation {
     created_at?: string;
     updated_at?: string;
     other_participant?: {
-        id?: number;
         name?: string;
-        email?: string;
-    },
+    };
     last_message?: {
-        id?: number;
         content?: string;
-        type?: string;
         created_at?: string;
-    },
+        is_deleted?: boolean;
+    };
     unread_count?: 0
 }
 

@@ -1,12 +1,17 @@
 import Card from '@/components/Card';
-import { useConversations } from '@/hooks/useConversations';
-import { Feather } from '@expo/vector-icons'
+import { Conversation, useConversations } from '@/hooks/useConversations';
+import { Feather } from '@expo/vector-icons';
 import { useFocusEffect } from 'expo-router';
-import React, { useCallback, useEffect, useState } from 'react'
-import { Alert, FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react';
+import { FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function Conversation() {
-    const { loading, getConversations, conversations, search } = useConversations();
+    const { loading, getConversations, conversations, search } = useConversations() as {
+        loading: boolean;
+        getConversations: () => void;
+        conversations: Conversation[];
+        search: (query: string) => Promise<void>;
+    };
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
@@ -21,9 +26,11 @@ export default function Conversation() {
 
     const handleSearch = async () => {
         if (!searchQuery.trim()) {
+            await getConversations();
             return;
         } else {
             await search(searchQuery);
+            setSearchQuery('');
         }
     }
 
@@ -75,7 +82,6 @@ export default function Conversation() {
                     }}
                     onPress={() => {
                         handleSearch();
-                        getConversations();
                     }}
                 >
                     <Feather name="search" size={26} color="#fff" />
@@ -93,13 +99,14 @@ export default function Conversation() {
                         data={conversations}
                         renderItem={({ item }) => (
                             <Card
-                                name={item.other_participant?.name}
-                                message={item.last_message?.content}
-                                time={item.last_message?.created_at}
-                                id={item.id}
+                                name={item.other_participant?.name ?? ''}
+                                message={item.last_message?.content ?? ''}
+                                time={item.last_message?.created_at ?? ''}
+                                id={item.id ?? ''}
+                                is_deleted={item.last_message?.is_deleted ?? false}
                             />
                         )}
-                        keyExtractor={item => item.id.toString()}
+                        keyExtractor={item => item.id?.toString() ?? ''}
                         contentContainerStyle={{ paddingBottom: 32 }}
                         showsVerticalScrollIndicator={false}
                     />
