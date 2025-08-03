@@ -23,7 +23,7 @@ export default function loginScreen() {
     return (
         <View style={{ flex: 1, backgroundColor: '#181818', justifyContent: 'center', alignItems: 'center' }}>
             <View style={{
-                width: '90%',
+                width: '95%',
                 backgroundColor: '#222',
                 borderRadius: 18,
                 padding: 24,
@@ -35,57 +35,35 @@ export default function loginScreen() {
                     <Entypo name="message" size={32} color={'#fff'} />
                     <Text style={{ fontWeight: 'bold', fontSize: 32, color: '#fff' }}>I CHAT</Text>
                 </View>
-                <View style={{ marginBottom: 18 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                        <Entypo name="email" size={16} color="#fff" />
-                        <Text style={{ color: '#fff' }}>Email</Text>
-                    </View>
+                <Text style={{ color: '#aaa', marginBottom: 4 }}>Email</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#181818', borderRadius: 8, borderWidth: 1, borderColor: '#333', marginBottom: 10 }}>
+                    <Entypo name="email" size={20} color="#888" style={{ marginLeft: 10, marginRight: 6 }} />
                     <TextInput
                         placeholder="Masukkan email"
-                        placeholderTextColor="#aaa"
+                        placeholderTextColor="#888"
                         value={inputs.email}
                         onChangeText={(text) => setInputs({ ...inputs, email: text })}
-                        style={{
-                            borderWidth: 1,
-                            borderColor: '#333',
-                            borderRadius: 10,
-                            paddingHorizontal: 12,
-                            paddingVertical: 10,
-                            marginTop: 6,
-                            color: '#fff',
-                            backgroundColor: '#181818',
-                        }}
+                        style={{ flex: 1, color: '#fff', paddingHorizontal: 0, paddingVertical: 10, fontSize: 15 }}
                     />
-                    {error?.email && (
-                        <Text style={{ color: 'red', fontSize: 13, marginTop: 2 }}>{error?.email}</Text>
-                    )}
                 </View>
-                <View style={{ marginBottom: 18 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                        <Entypo name="lock" size={16} color="#fff" />
-                        <Text style={{ color: '#fff' }}>Password</Text>
-                    </View>
+                {error?.email && (
+                    <Text style={{ color: 'red', fontSize: 13, marginTop: 2 }}>{error?.email}</Text>
+                )}
+                <Text style={{ color: '#aaa', marginBottom: 4 }}>Password</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#181818', borderRadius: 8, borderWidth: 1, borderColor: '#333', marginBottom: 10 }}>
+                    <Entypo name="lock" size={20} color="#888" style={{ marginLeft: 10, marginRight: 6 }} />
                     <TextInput
                         placeholder="Masukkan password"
-                        placeholderTextColor="#aaa"
+                        placeholderTextColor="#888"
                         secureTextEntry={true}
                         value={inputs.password}
                         onChangeText={(text) => setInputs({ ...inputs, password: text })}
-                        style={{
-                            borderWidth: 1,
-                            borderColor: '#333',
-                            borderRadius: 10,
-                            paddingHorizontal: 12,
-                            paddingVertical: 10,
-                            marginTop: 6,
-                            color: '#fff',
-                            backgroundColor: '#181818',
-                        }}
+                        style={{ flex: 1, color: '#fff', paddingHorizontal: 0, paddingVertical: 10, fontSize: 15 }}
                     />
-                    {error?.password && (
-                        <Text style={{ color: 'red', fontSize: 13, marginTop: 2 }}>{error?.password}</Text>
-                    )}
                 </View>
+                {error?.password && (
+                    <Text style={{ color: 'red', fontSize: 13, marginTop: 2 }}>{error?.password}</Text>
+                )}
                 <TouchableOpacity
                     onPress={handleLogin}
                     style={{
@@ -109,6 +87,6 @@ export default function loginScreen() {
                     </Text>
                 </View>
             </View>
-        </View>
+        </View >
     )
 }

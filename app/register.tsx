@@ -1,5 +1,5 @@
 import { useAuth } from "@/hooks/useAuth";
-import { Entypo, Feather } from "@expo/vector-icons";
+import { Entypo, Feather, MaterialIcons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
@@ -26,7 +26,7 @@ export default function registerScreen() {
     return (
         <View style={{ flex: 1, backgroundColor: '#181818', justifyContent: 'center', alignItems: 'center' }}>
             <View style={{
-                width: '90%',
+                width: '95%',
                 backgroundColor: '#222',
                 borderRadius: 18,
                 padding: 24,
@@ -38,100 +38,56 @@ export default function registerScreen() {
                     <Entypo name="message" size={32} color={'#fff'} />
                     <Text style={{ fontWeight: 'bold', fontSize: 32, color: '#fff' }}>I CHAT</Text>
                 </View>
-                <View style={{ marginBottom: 18 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                        <Feather name="user" size={16} color="#fff" />
-                        <Text style={{ color: '#fff' }}>Nama</Text>
-                    </View>
+                <Text style={{ color: '#aaa', marginBottom: 4 }}>Nama</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#181818', borderRadius: 8, borderWidth: 1, borderColor: '#333', marginBottom: 10 }}>
+                    <Feather name="user" size={20} color="#888" style={{ marginLeft: 10, marginRight: 6 }} />
                     <TextInput
                         placeholder="Masukkan nama"
-                        placeholderTextColor="#aaa"
+                        placeholderTextColor="#888"
                         value={inputs.name}
                         onChangeText={(text) => setInputs({ ...inputs, name: text })}
-                        style={{
-                            borderWidth: 1,
-                            borderColor: '#333',
-                            borderRadius: 10,
-                            paddingHorizontal: 12,
-                            paddingVertical: 10,
-                            marginTop: 6,
-                            color: '#fff',
-                            backgroundColor: '#181818',
-                        }}
+                        style={{ flex: 1, color: '#fff', paddingHorizontal: 0, paddingVertical: 10, fontSize: 15 }}
                     />
-                    {error?.name && (<Text style={{ color: 'red', fontSize: 13, marginTop: 2 }}>{error?.name}</Text>)}
                 </View>
-                <View style={{ marginBottom: 18 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                        <Entypo name="email" size={16} color="#fff" />
-                        <Text style={{ color: '#fff' }}>Email</Text>
-                    </View>
+                {error?.name && (<Text style={{ color: 'red', fontSize: 13, marginTop: 2 }}>{error?.name}</Text>)}
+                <Text style={{ color: '#aaa', marginBottom: 4 }}>Email</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#181818', borderRadius: 8, borderWidth: 1, borderColor: '#333', marginBottom: 10 }}>
+                    <Entypo name="email" size={20} color="#888" style={{ marginLeft: 10, marginRight: 6 }} />
                     <TextInput
                         placeholder="Masukkan email"
-                        placeholderTextColor="#aaa"
+                        placeholderTextColor="#888"
                         value={inputs.email}
                         onChangeText={(text) => setInputs({ ...inputs, email: text })}
-                        style={{
-                            borderWidth: 1,
-                            borderColor: '#333',
-                            borderRadius: 10,
-                            paddingHorizontal: 12,
-                            paddingVertical: 10,
-                            marginTop: 6,
-                            color: '#fff',
-                            backgroundColor: '#181818',
-                        }}
+                        style={{ flex: 1, color: '#fff', paddingHorizontal: 0, paddingVertical: 10, fontSize: 15 }}
                     />
-                    {error?.email && (<Text style={{ color: 'red', fontSize: 13, marginTop: 2 }}>{error?.email}</Text>)}
                 </View>
-                <View style={{ marginBottom: 18 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                        <Entypo name="lock" size={16} color="#fff" />
-                        <Text style={{ color: '#fff' }}>Password</Text>
-                    </View>
+                {error?.email && (<Text style={{ color: 'red', fontSize: 13, marginTop: 2 }}>{error?.email}</Text>)}
+                <Text style={{ color: '#aaa', marginBottom: 4 }}>Password</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#181818', borderRadius: 8, borderWidth: 1, borderColor: '#333', marginBottom: 10 }}>
+                    <Entypo name="lock" size={20} color="#888" style={{ marginLeft: 10, marginRight: 6 }} />
                     <TextInput
                         placeholder="Masukkan password"
-                        placeholderTextColor="#aaa"
+                        placeholderTextColor="#888"
                         value={inputs.password}
                         onChangeText={(text) => setInputs({ ...inputs, password: text })}
                         secureTextEntry={true}
-                        style={{
-                            borderWidth: 1,
-                            borderColor: '#333',
-                            borderRadius: 10,
-                            paddingHorizontal: 12,
-                            paddingVertical: 10,
-                            marginTop: 6,
-                            color: '#fff',
-                            backgroundColor: '#181818',
-                        }}
+                        style={{ flex: 1, color: '#fff', paddingHorizontal: 0, paddingVertical: 10, fontSize: 15 }}
                     />
-                    {error?.password && (<Text style={{ color: 'red', fontSize: 13, marginTop: 2 }}>{error?.password}</Text>)}
                 </View>
-                <View style={{ marginBottom: 18 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                        <Entypo name="lock" size={16} color="#fff" />
-                        <Text style={{ color: '#fff' }}>Konfirmasi Password</Text>
-                    </View>
+                {error?.password && (<Text style={{ color: 'red', fontSize: 13, marginTop: 2 }}>{error?.password}</Text>)}
+                <Text style={{ color: '#aaa', marginBottom: 4 }}>Konfirmasi Password</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#181818', borderRadius: 8, borderWidth: 1, borderColor: '#333', marginBottom: 10 }}>
+                    <MaterialIcons name="lock-reset" size={20} color="#888" style={{ marginLeft: 10, marginRight: 6 }} />
                     <TextInput
-                        placeholder="Masukkan konfirmasi password"
-                        placeholderTextColor="#aaa"
+                        placeholder="Konfirmasi password"
+                        placeholderTextColor="#888"
                         value={inputs.password_confirmation}
                         onChangeText={(text) => setInputs({ ...inputs, password_confirmation: text })}
                         secureTextEntry={true}
-                        style={{
-                            borderWidth: 1,
-                            borderColor: '#333',
-                            borderRadius: 10,
-                            paddingHorizontal: 12,
-                            paddingVertical: 10,
-                            marginTop: 6,
-                            color: '#fff',
-                            backgroundColor: '#181818',
-                        }}
+                        style={{ flex: 1, color: '#fff', paddingHorizontal: 0, paddingVertical: 10, fontSize: 15 }}
                     />
-                    {error?.password_confirmation && (<Text style={{ color: 'red', fontSize: 13, marginTop: 2 }}>{error?.password_confirmation}</Text>)}
                 </View>
+                {error?.password_confirmation && (<Text style={{ color: 'red', fontSize: 13, marginTop: 2 }}>{error?.password_confirmation}</Text>)}
                 <TouchableOpacity
                     onPress={handleRegister}
                     style={{
@@ -150,11 +106,11 @@ export default function registerScreen() {
                     </Text>
                 </TouchableOpacity>
                 <View style={{ marginTop: 16 }}>
-                    <Text style={{ color: '#aaa', textAlign: 'center', fontSize: 14 }}>
+                    <Text style={{ color: '#888', textAlign: 'center', fontSize: 14 }}>
                         Sudah punya akun? <Link href={'/login'} style={{ color: '#2563eb' }}>Masuk</Link>
                     </Text>
                 </View>
             </View>
-        </View>
+        </View >
     )
 }
