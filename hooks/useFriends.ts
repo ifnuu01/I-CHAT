@@ -43,7 +43,7 @@ export const useFriends = () => {
                 console.log("Error fetching friends:", result);
                 return;
             }
-            console.log("Friends fetched successfully:", result);
+            // console.log("Friends fetched successfully:", result);
             setFriends(result);
         } catch (err) {
             console.log("Error fetching friends:", err);
@@ -72,7 +72,7 @@ export const useFriends = () => {
                 console.log("Error adding friend:", result);
                 return;
             }
-            console.log("Friend added successfully:", result);
+            // console.log("Friend added successfully:", result);
             return result;
         } catch (err) {
             console.log("Error adding friend:", err);
@@ -131,7 +131,7 @@ export const useFriends = () => {
                 console.log("Error accepting friend request:", result);
                 return;
             }
-            console.log("Friend request accepted successfully:", result);
+            // console.log("Friend request accepted successfully:", result);
             return result;
         } catch (error) {
             console.log("Error accepting friend request:", error);
@@ -160,7 +160,7 @@ export const useFriends = () => {
                 console.log("Error canceling friend request:", result);
                 return;
             }
-            console.log("Friend request canceled successfully:", result);
+            // console.log("Friend request canceled successfully:", result);
             return result;
         } catch (error) {
             console.log("Error canceling friend request:", error);
@@ -190,7 +190,7 @@ export const useFriends = () => {
                 setError(result);
                 return;
             }
-            console.log("Friends fetched successfully:", result);
+            // console.log("Friends fetched successfully:", result);
             setFriends(result);
         } catch (error) {
             console.log("Error fetching friends:", error);
@@ -220,7 +220,7 @@ export const useFriends = () => {
                 setError(result);
                 return;
             }
-            console.log("Friends fetched successfully:", result);
+            // console.log("Friends fetched successfully:", result);
             setFriends(result);
         } catch (error) {
             console.log("Error fetching friends:", error);

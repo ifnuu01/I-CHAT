@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
-export interface Conversation {
+export interface ConversationType {
     id?: number | string;
     user1_id?: number;
     user2_id?: number;
@@ -14,6 +14,8 @@ export interface Conversation {
     updated_at?: string;
     other_participant?: {
         name?: string;
+        id?: number;
+        avatar?: string;
     };
     last_message?: {
         content?: string;
@@ -24,7 +26,7 @@ export interface Conversation {
 }
 
 export const useConversations = () => {
-    const [conversations, setConversations] = useState<Conversation[]>([]);
+const [conversations, setConversations] = useState<ConversationType[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null); 
 
