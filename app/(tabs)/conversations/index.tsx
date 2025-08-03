@@ -1,5 +1,5 @@
 import Card from '@/components/Card';
-import { Conversation, useConversations } from '@/hooks/useConversations';
+import { ConversationType, useConversations } from '@/hooks/useConversations';
 import { Feather } from '@expo/vector-icons';
 import { useFocusEffect } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -9,10 +9,12 @@ export default function Conversation() {
     const { loading, getConversations, conversations, search } = useConversations() as {
         loading: boolean;
         getConversations: () => void;
-        conversations: Conversation[];
+        conversations: ConversationType[];
         search: (query: string) => Promise<void>;
     };
     const [searchQuery, setSearchQuery] = useState('');
+
+    // console.log('Conversations:', conversations);
 
     useEffect(() => {
         getConversations();
@@ -104,6 +106,8 @@ export default function Conversation() {
                                 time={item.last_message?.created_at ?? ''}
                                 id={item.id ?? ''}
                                 is_deleted={item.last_message?.is_deleted ?? false}
+                                avatar={item.other_participant?.avatar ?? ''}
+                                unreadCount={item.unread_count ?? 0}
                             />
                         )}
                         keyExtractor={item => item.id?.toString() ?? ''}

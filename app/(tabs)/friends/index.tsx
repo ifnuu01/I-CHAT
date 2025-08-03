@@ -99,6 +99,7 @@ export default function Friendship() {
                                     friendship_status={item.friendship_status}
                                     id={item.id}
                                     friendship_id={item.friendship_id}
+                                    avatar={item.avatar}
                                 />
                             )}
                             keyExtractor={item => item.id.toString()}

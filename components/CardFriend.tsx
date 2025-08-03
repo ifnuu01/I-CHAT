@@ -3,11 +3,12 @@ import { Feather } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 
-export default function CardFriend({ email, friendship_status, id, friendship_id }: {
+export default function CardFriend({ email, friendship_status, id, friendship_id, avatar }: {
     email: string;
     friendship_status: "none" | "friends" | "pending_sent" | "pending_received" | "accepted" | "pending";
     id: number;
     friendship_id: number;
+    avatar?: string;
 }) {
     const { loading, error, addFriend, removeFriend, acceptFriend, cancelAddFriend } = useFriends();
     const [friendshipStatus, setFriendshipStatus] = useState(friendship_status);
@@ -76,7 +77,7 @@ export default function CardFriend({ email, friendship_status, id, friendship_id
                 }}
             >
                 <Image
-                    source={{ uri: 'https://i.pinimg.com/originals/00/f8/6b/00f86b1463e599e15d0cc3d870505a2e.jpg' }}
+                    source={{ uri: avatar || 'https://i.pinimg.com/originals/00/f8/6b/00f86b1463e599e15d0cc3d870505a2e.jpg' }}
                     style={{
                         width: 50,
                         height: 50,

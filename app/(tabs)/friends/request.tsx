@@ -62,7 +62,7 @@ export default function Request() {
                                     }}
                                 />
                                 <View style={{ flex: 1 }}>
-                                    <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#fff' }}>{friend.name}</Text>
+                                    <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#fff' }}>{friend.name.slice(0, 10)}{friend.name.length > 10 && '...'}</Text>
                                     <Text style={{ fontSize: 13, color: '#ccc' }}>{friend.email}</Text>
                                 </View>
                             </View>

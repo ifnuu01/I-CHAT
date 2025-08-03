@@ -8,12 +8,16 @@ export default function Card({
     time,
     id,
     is_deleted,
+    avatar,
+    unreadCount
 }: {
     name: string;
     message: string;
     time: string;
     id: number | string;
     is_deleted: boolean;
+    avatar?: string;
+    unreadCount?: number;
 }) {
     return (
         <TouchableOpacity
@@ -28,10 +32,11 @@ export default function Card({
         >
             <View
                 style={{
-                    backgroundColor: '#141414',
-                    borderBottomColor: '#333',
+                    backgroundColor: '#222',
+                    borderRadius: 14,
+                    borderWidth: 1,
+                    borderColor: '#333',
                     paddingHorizontal: 10,
-                    borderRadius: 10,
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                 }}
@@ -45,7 +50,7 @@ export default function Card({
                     }}
                 >
                     <Image
-                        source={{ uri: 'https://i.pinimg.com/originals/00/f8/6b/00f86b1463e599e15d0cc3d870505a2e.jpg' }}
+                        source={{ uri: avatar || 'https://i.pinimg.com/originals/00/f8/6b/00f86b1463e599e15d0cc3d870505a2e.jpg' }}
                         style={{
                             width: 50,
                             height: 50,
@@ -60,7 +65,8 @@ export default function Card({
                             color: '#fff',
                             fontWeight: 'bold',
                             fontSize: 16,
-                        }}>{name}</Text>
+                        }}
+                        >{name.slice(0, 10)}{name.length > 10 && '...'}</Text>
                         <Text style={{ color: '#ccc' }}>
                             {is_deleted ? "Pesan ini telah dihapus." : (message || 'Belum ada pesan baru').slice(0, 20)}{message && message.length > 20 && '...'}
                         </Text>
@@ -69,9 +75,14 @@ export default function Card({
                 <View
                     style={{
                         paddingTop: 10,
+                        alignItems: 'flex-end',
+                        gap: 8,
                     }}
                 >
-                    <Text style={{ color: '#aaa', fontSize: 12 }}>{formatTime(time) || '20:20'}</Text>
+                    <Text style={{ color: unreadCount ? '#2563eb' : '#aaa', fontSize: 12, fontWeight: '500' }}>{formatTime(time) || '20:20'}</Text>
+                    {Boolean(unreadCount) && (
+                        <Text style={{ color: '#fff', width: 20, borderRadius: 100, backgroundColor: '#2563eb', textAlign: 'center' }}>{unreadCount}</Text>
+                    )}
                 </View>
             </View>
         </TouchableOpacity>

@@ -60,10 +60,12 @@ export default function List() {
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 justifyContent: 'space-between',
-                                borderBottomWidth: 1,
-                                borderBottomColor: '#222',
-                                paddingBottom: 10,
-                                marginBottom: 4,
+                                backgroundColor: '#222',
+                                borderRadius: 14,
+                                borderWidth: 1,
+                                borderColor: '#333',
+                                padding: 12,
+                                marginBottom: 8,
                             }}
                         >
                             <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
@@ -80,7 +82,7 @@ export default function List() {
                                     }}
                                 />
                                 <View style={{ flex: 1 }}>
-                                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#fff' }}>{friend.name}</Text>
+                                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#fff' }}>{friend.name.slice(0, 10)}{friend.name.length > 10 && '...'}</Text>
                                     <Text style={{ fontSize: 14, color: '#ccc' }}>{friend.email}</Text>
                                 </View>
                             </View>
